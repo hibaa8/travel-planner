@@ -23,13 +23,15 @@ Home
         <input type="radio" id="friends" name="group_type" value="Friends">
         <label for="friends">Friends</label><br>
 
-        <label for="group_size">Number of People:</label><br>
-        <input type="number" id="group_size" name="group_size" min="1" required><br>
+        <label for="budget">Budget (1-Low, 3-High)</label><br>
+        <input type="radio" id="low" name="budget" value="1">
+        <label for="1">1</label><br>
+        <input type="radio" id="medium" name="budget" value="2">
+        <label for="2">2</label><br>
+        <input type="radio" id="high" name="budget" value="3">
+        <label for="3">3</label><br>
 
-        <label for="budget">Total Budget:</label><br>
-        <input type="number" id="budget" name="budget" min="0" required><br>
-
-        <p>Preferences: (Optional)</p>
+        <p>Preferences: </p>
         <input type="checkbox" id="historical" name="preferences" value="Historical">
         <label for="historical">Historical Sites</label><br>
         <input type="checkbox" id="outdoor" name="preferences" value="Outdoor">

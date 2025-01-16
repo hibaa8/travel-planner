@@ -14,11 +14,10 @@ def home():
         start_date = request.form.get('start_date')
         end_date = request.form.get('end_date')
         group_type = request.form.get('group_type')
-        group_size = request.form.get('group_size')
+        # group_size = request.form.get('group_size')
         budget = request.form.get('budget')
         preferences = request.form.getlist('preferences')
 
-        # Validate input (optional)
         if not destination or not start_date or not end_date:
             flash('Please fill out all required fields.', category='error')
             return redirect(url_for('views.home'))
@@ -30,11 +29,11 @@ def home():
             "start_date": datetime.strptime(start_date, "%Y-%m-%d"),
             "end_date": datetime.strptime(end_date, "%Y-%m-%d"),
             "group_type": group_type,
-            "group_size": int(group_size),
+            # "group_size": int(group_size),
             "budget": float(budget),
             "preferences": preferences
         }
-        mongo.db.search_history.insert_one(search_history_entry)
+        views.search_hist_collection.insert_one(search_history_entry)
 
         flash('Search successfully saved to history!', category='success')
         return redirect(url_for('views.home'))
