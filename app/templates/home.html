@@ -1,0 +1,50 @@
+{% extends "base.html" %} 
+{% block title %}
+Home
+{% endblock %} 
+{% block content %}
+    <h1 align="center">Create a New Itinerary</h1>
+    <form method="POST">
+        <label for="destination">Destination:</label><br>
+        <input type="text" id="destination" name="destination" required><br>
+
+        <label for="start_date">Start Date:</label><br>
+        <input type="date" id="start_date" name="start_date" required><br>
+        <label for="end_date">End Date:</label><br>
+        <input type="date" id="end_date" name="end_date" required><br>
+
+        <p>Group Type:</p>
+        <input type="radio" id="single" name="group_type" value="Single" required>
+        <label for="single">Single</label><br>
+        <input type="radio" id="couple" name="group_type" value="Couple">
+        <label for="couple">Couple</label><br>
+        <input type="radio" id="family" name="group_type" value="Family">
+        <label for="family">Family</label><br>
+        <input type="radio" id="friends" name="group_type" value="Friends">
+        <label for="friends">Friends</label><br>
+
+        <label for="group_size">Number of People:</label><br>
+        <input type="number" id="group_size" name="group_size" min="1" required><br>
+
+        <label for="budget">Total Budget:</label><br>
+        <input type="number" id="budget" name="budget" min="0" required><br>
+
+        <p>Preferences: (Optional)</p>
+        <input type="checkbox" id="historical" name="preferences" value="Historical">
+        <label for="historical">Historical Sites</label><br>
+        <input type="checkbox" id="outdoor" name="preferences" value="Outdoor">
+        <label for="outdoor">Outdoor Activities</label><br>
+        <input type="checkbox" id="museums" name="preferences" value="Museums">
+        <label for="museums">Museums</label><br>
+        <input type="checkbox" id="food" name="preferences" value="Culinary">
+        <label for="food">Culinary Experiences</label><br>
+        <input type="checkbox" id="shopping" name="preferences" value="Shopping">
+        <label for="shopping">Shopping</label><br>
+        <input type="checkbox" id="nightlife" name="preferences" value="Nightlife">
+        <label for="nightlife">Nightlife</label><br>
+
+        <div align="center">
+          <button type="submit" class="btn btn-primary">Generate Itinerary</button>
+        </div>
+    </form>
+{% endblock %}

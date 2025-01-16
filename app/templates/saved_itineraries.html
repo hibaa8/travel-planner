@@ -1,0 +1,14 @@
+{% extends "base.html" %} 
+{% block title %}
+Saved Iterinaries
+{% endblock %} 
+{% block content%}
+    <h1 align="center">Saved iterinaries</h1>
+    <ul class="list-group list-group-flush" id="iterinaries">
+      {% for iterinary in user.iterinaries %}
+      <li class="list-group-item">
+        {{ iterinary.data }}
+      </li>
+      {% endfor %}
+    </ul>
+{% endblock %}
