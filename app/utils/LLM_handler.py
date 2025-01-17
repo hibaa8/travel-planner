@@ -3,7 +3,7 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 import os
 import json
-from constants import BASE_PROMPT
+from app.constants import BASE_PROMPT
 
 load_dotenv()
 
