@@ -16,6 +16,7 @@ It then displays a day-by-day itinerary of attractions and restaurants that are 
 - **Database**: MongoDB
 - **Web Scraping**: Selenium on Lonely Planet website
 - **APIs**: Google Places API and Google Places Detail API
+- **LLM**: Gemini Flash 1.5 model
 
 
 ## Setup Instructions
@@ -35,7 +36,7 @@ It then displays a day-by-day itinerary of attractions and restaurants that are 
    ```bash
    pip install -r requirements.txt
    ```
-   
+
 4. Set up API keys for Google Places API and Gemini API and add them to the .env file.
 
 5. Run the Flask application:
