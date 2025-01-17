@@ -7,8 +7,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import validators
 
-#web scraping to highlight more stereotypical/popular attractions - used to give users additional options aside from the curated iterinary
-
 class LonelyPlanetHandler:
 
     def __init__(self, location):
@@ -93,17 +91,20 @@ class LonelyPlanetHandler:
                     name = name_element.text.strip()
                     attraction_link = name_element.get_attribute("href")
 
-                    location_element = element.find_element(By.CSS_SELECTOR, ".text-sm.font-semibold.uppercase")
-                    location = location_element.text.strip()
-
                     self.driver.execute_script("window.open('');")
-                    self.driver.switch_to.window(driver.window_handles[1])
+                    self.driver.switch_to.window(self.driver.window_handles[1])
                     self.driver.get(attraction_link)
 
                     google_maps_link = None
                     external_link = None
+                    location = ""
 
                     try:
+
+                        address_section = self.driver.find_element(By.XPATH, "//h3[text()='Address']/following-sibling::div")
+                        address_element = address_section.find_element(By.CSS_SELECTOR, "p.text-md")
+                        location = address_element.text.strip()
+
                         inline_links = self.driver.find_elements(By.CSS_SELECTOR, "a.inline-link")
                         for link in inline_links:
                             href = link.get_attribute("href")
@@ -111,6 +112,7 @@ class LonelyPlanetHandler:
                                 google_maps_link = href
                             elif validators.url(href):
                                 external_link = href
+                
 
                     except Exception:
                         google_maps_link = "No Google Maps link found"
@@ -122,9 +124,9 @@ class LonelyPlanetHandler:
                     attractions.append({
                         "image": image_url,
                         "name": name,
-                        "location": self.location,
+                        "address": location,
                         "google_maps_link": google_maps_link,
-                        "external_link": external_link
+                        "website": external_link
                     })
 
                 except Exception as e:
@@ -137,6 +139,12 @@ class LonelyPlanetHandler:
     def quit_driver(self):
         self.driver.quit()
 
+    def get_popular_attractions(self):
+        attractions_page_url = self.get_attractions_page()
+        print(f'attractions page url: {attractions_page_url}')
+        results = self.parse_attractions_page(attractions_page_url)
+        print(f'attraction page results: {results}')
+        return results
+         
+
     
-if __name__ == '__main__':
-    l = LonelyPlanetHandler('New York')

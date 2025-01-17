@@ -1,0 +1,48 @@
+.card {
+    display: inline-block;
+    width: 30%;
+    margin: 1%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    background-color: #fff;
+    transition: transform 0.3s;
+}
+.card:hover {
+    transform: scale(1.02);
+}
+.card h5 {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+.card p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0.5rem 0;
+}
+.card a {
+    font-size: 0.85rem;
+    color: #007bff;
+    text-decoration: none;
+}
+.card a:hover {
+    text-decoration: underline;
+}
+
+.card button{
+    border-radius:20px;
+    margin:10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+}

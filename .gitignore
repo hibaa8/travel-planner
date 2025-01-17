@@ -3,3 +3,9 @@
 
 app/__pycache__/*
 app/test.py
+
+app/myenv/
+app/test2.py
+app/test3.py
+app/utils/__pycache__/*
+app/test*

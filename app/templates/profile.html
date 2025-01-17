@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Saved Itineraries{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+
+<div class="container">
+    <h2>Saved Itineraries</h2>
+    <div class="row" id="saved-itineraries"></div>
+</div>
+
+<script>
+    const container = document.getElementById('saved-itineraries');
+    const itineraries = JSON.parse('{{ itineraries|tojson|safe }}');
+    itineraries.forEach(itinerary => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.innerHTML = `
+            <h5>${itinerary.destination}</h5>
+            <h6>Saved: ${new Date(itinerary.saved_at).toLocaleString()}</h6>
+            <button onclick="viewItinerary('${itinerary.id}')">View Itinerary</button>
+        `;
+        container.appendChild(card);
+    })
+
+    function viewItinerary(id) {
+        window.location.href = `/view_itinerary/${id}`;
+    }
+</script>
+{% endblock %}

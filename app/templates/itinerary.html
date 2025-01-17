@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %} {{destination}} Itinerary{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='itinerary.css') }}">
+
+<div class="container">
+    <h2>Itinerary</h2>
+    {% for day, details in itinerary['itinerary'].items() %}
+    <div class="day-card">
+        <div class="day-header">{{ day }}</div>
+
+        <div class="category">
+            <h4>Attractions</h4>
+            <div class="row">
+                {% for attraction in details['attractions'] %}
+                <div class="card" onclick="window.open('{{ attraction['link'] }}', '_blank')">
+
+                    <img src="{{ attraction['image'] }}" alt="{{ attraction['name'] }}">
+                    <div class="card-content">
+                        <h5>{{ attraction['name'] }}</h5>
+                        <p>{{ attraction['address'] }}</p>
+                        <p>Rating: {{ attraction['rating'] }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="category">
+            <h4>Restaurants</h4>
+            <div class="row">
+                {% for restaurant in details['restaurants'] %}
+                <div class="card" onclick="window.open('{{ restaurant['link'] }}', '_blank')">
+                    <img src="{{ restaurant['image'] }}" alt="{{ restaurant['name'] }}">
+                    <div class="card-content">
+                        <h5>{{ restaurant['name'] }}</h5>
+                        <p>{{ restaurant['address'] }}</p>
+                        <p>Rating: {{ restaurant['rating'] }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <h2>Popular Attractions</h2>
+    <div class="row">
+        {% for attraction in popular_attractions %}
+        <div class="card" onclick="window.open('{{ attraction['website'] }}', '_blank')">
+            <img src="{{ attraction['image'] }}" alt="{{ attraction['name'] }}">
+            <div class="card-content">
+                <h5>{{ attraction['name'] }}</h5>
+                <p>{{ attraction['address'] }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if save_option %}
+    <div class="save-button-container">
+        <button class="save-button" onclick="saveItinerary()">Save Itinerary</button>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    function saveItinerary() {
+        const itinerary = JSON.parse('{{ itinerary | tojson | safe }}');
+        const popular_attractions = JSON.parse('{{ popular_attractions | tojson | safe }}');
+        const destination = JSON.parse('{{ destination | tojson | safe }}');
+    
+        console.log('Itinerary:', JSON.stringify(itinerary, null, 2));
+        console.log('Popular Attractions:', JSON.stringify(popular_attractions, null, 2));
+    
+        fetch('/save_itinerary', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ itinerary, popular_attractions, destination })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to save itinerary.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message || 'Itinerary saved successfully!');
+            window.location.href = '/profile';
+        })
+        .catch(error => {
+            console.error('Error saving itinerary:', error);
+            alert('An error occurred while saving the itinerary.');
+        });
+    }
+</script>
+{% endblock %}
